@@ -85,8 +85,8 @@ Setup installs [uv](https://docs.astral.sh/uv/) and Ollama if they are missing.
 1. **Get the code**
 
    ```powershell
-   git clone https://github.com/YOUR-USERNAME/YOUR-REPOSITORY.git
-   cd YOUR-REPOSITORY
+   git clone https://github.com/wizzyindustry/jarvis.git
+   cd jarvis
    ```
 
 2. **Run setup.** It creates `config.toml`, installs the dependencies, and downloads the speech models, the city list and the AI model (3.3 GB).
