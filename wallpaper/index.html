@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jarvis HUD</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-state="offline">
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="bg-streaks" aria-hidden="true"></div>
+
+  <!-- corner brackets -->
+  <div class="bracket tl" aria-hidden="true"></div>
+  <div class="bracket tr" aria-hidden="true"></div>
+  <div class="bracket bl" aria-hidden="true"></div>
+  <div class="bracket br" aria-hidden="true"></div>
+  <div class="floor-line" aria-hidden="true"></div>
+
+  <header class="clock-block">
+    <div id="clock" class="clock">--:--:--</div>
+    <div id="date" class="date">-</div>
+  </header>
+
+  <header class="location-block">
+    <div class="loc-name"><span class="loc-rule"></span><span id="loc-name">-</span></div>
+    <div id="loc-coords" class="loc-coords"></div>
+  </header>
+
+  <main class="reactor" aria-live="polite">
+    <svg class="rings" viewBox="-300 -300 600 600" aria-hidden="true">
+      <defs>
+        <filter id="soft" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation="2.2" result="b"/>
+          <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+      <g class="ring ring-dashed"><circle r="250" /></g>
+      <g class="ring ring-outer"><circle r="237" /></g>
+      <g class="ring ring-ticks" filter="url(#soft)">
+        <path d="M 135 -213 L 152 -203" /><path d="M 168 -190 L 182 -177" /><path d="M 203 -150 L 214 -136" />
+      </g>
+      <g class="ring ring-arcs" filter="url(#soft)">
+        <path d="M -88 -152 A 175 175 0 0 1 150 -90" />
+        <path d="M 88 152 A 175 175 0 0 1 -150 90" />
+      </g>
+      <g class="ring ring-inner"><circle r="150" /></g>
+      <g class="ring ring-scan"><path d="M 0 -200 A 200 200 0 0 1 200 0" /></g>
+    </svg>
+    <div class="core-wrap">
+      <div class="crosshair" aria-hidden="true"></div>
+      <div id="core" class="core">
+        <div id="core-name" class="core-name">JARVIS</div>
+        <div id="core-mode" class="core-mode">OFFLINE</div>
+      </div>
+    </div>
+  </main>
+
+  <section class="panel feed-panel" aria-label="Activity feed">
+    <div class="panel-head">
+      <span>ACTIVITY FEED</span>
+      <span class="dots"><i></i><i></i></span>
+    </div>
+    <ol id="feed" class="feed"></ol>
+    <div class="panel-foot"><span>SECURE LINE 01</span><span id="link-label">LOCAL</span></div>
+  </section>
+
+  <section class="panel stats-panel" aria-label="System analysis">
+    <div class="panel-title">SYSTEM ANALYSIS</div>
+    <div class="stat">
+      <div class="stat-row">
+        <span class="stat-label"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="3.5" y="3.5" width="9" height="9" rx="1"/><path d="M6 1v2M10 1v2M6 13v2M10 13v2M1 6h2M1 10h2M13 6h2M13 10h2"/></svg>CPU CORE</span>
+        <span id="cpu-val" class="stat-val">--%</span>
+      </div>
+      <div class="bar"><i id="cpu-bar"></i></div>
+    </div>
+    <div class="stat">
+      <div class="stat-row">
+        <span class="stat-label"><svg viewBox="0 0 16 16" aria-hidden="true"><ellipse cx="8" cy="4" rx="5.5" ry="2"/><path d="M2.5 4v8c0 1.1 2.5 2 5.5 2s5.5-.9 5.5-2V4M2.5 8c0 1.1 2.5 2 5.5 2s5.5-.9 5.5-2"/></svg>RAM BUFFER</span>
+        <span id="ram-val" class="stat-val">--%</span>
+      </div>
+      <div class="bar"><i id="ram-bar"></i></div>
+    </div>
+    <div class="stat">
+      <div class="stat-row">
+        <span class="stat-label"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M1 8h3l2-5 3 10 2-5h4"/></svg>NEURAL LINK</span>
+        <span id="mic-val" class="stat-val">--%</span>
+      </div>
+      <div class="bar"><i id="mic-bar"></i></div>
+    </div>
+  </section>
+
+  <script src="token.js" onerror="void 0"></script>
+  <script src="app.js"></script>
+</body>
+</html>

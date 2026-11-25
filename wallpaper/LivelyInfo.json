@@ -1,0 +1,13 @@
+{
+  "AppVersion": "1.0.0.0",
+  "Title": "Jarvis HUD",
+  "Thumbnail": "thumbnail.jpg",
+  "Desc": "Live status wallpaper for the local Jarvis voice agent.",
+  "Author": "",
+  "License": "",
+  "Contact": "",
+  "Type": 1,
+  "FileName": "index.html",
+  "Arguments": null,
+  "IsAbsolutePath": false
+}

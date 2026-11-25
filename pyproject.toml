@@ -1,0 +1,38 @@
+[project]
+name = "jarvis"
+version = "0.1.0"
+description = "Local voice agent with a live desktop wallpaper"
+requires-python = ">=3.14,<3.15"
+dependencies = [
+    "aiohttp>=3.10",
+    "faster-whisper>=1.1",
+    "httpx>=0.27",
+    "keyring>=25",
+    "numpy>=1.26",
+    "onnxruntime>=1.18",
+    "openwakeword>=0.6",
+    "piper-tts>=1.2",
+    "pillow>=10",
+    "psutil>=6",
+    "pycaw>=20240739",
+    "pystray>=0.19",
+    "pywin32>=306",
+    "send2trash>=1.8",
+    "sounddevice>=0.5",
+]
+
+[project.optional-dependencies]
+google = ["google-api-python-client>=2.140", "google-auth-oauthlib>=1.2"]
+
+[dependency-groups]
+dev = ["pytest>=8", "pytest-asyncio>=0.24"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+
+[tool.uv]
+package = false
+# openwakeword's Linux-only tflite dependency has no wheels for this Python; this app is Windows-only.
+environments = ["sys_platform == 'win32'"]

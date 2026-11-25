@@ -1,0 +1,30 @@
+# Python
+.venv/
+.uv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Downloaded models and installers
+models/
+.downloads/
+
+# Personal: settings, logs, database, tokens, files Jarvis creates
+config.toml
+data/
+workspace/
+wallpaper/token.js
+client_secret*.json
+*google_client_secret*.json
+.env
+.env.*
+
+# Build output (the wallpaper zip contains a private token)
+dist/
+
+# Editors and tools
+.vscode/
+.idea/
+.claude/
+Thumbs.db
+desktop.ini

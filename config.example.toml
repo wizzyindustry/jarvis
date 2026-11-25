@@ -1,0 +1,102 @@
+# Example settings. Copy this file to config.toml, edit that copy, then restart Jarvis.
+
+[assistant]
+name = "Jarvis"
+language = "en"
+# Said when Jarvis wakes (one picked at random). Use [] for none.
+greetings = [
+    "Hello boss, what can we do today?",
+    "Yes boss, I'm listening.",
+    "At your service, boss. What do you need?",
+]
+# Said once when Windows starts Jarvis at sign-in. {part} = morning/afternoon/evening,
+# {time} = 8:15 AM, {day} = Monday. Use "" for silence.
+startup_greeting = "Good {part}, boss. Jarvis is online and all systems are running. It's {time}. What can we do today?"
+
+[location]
+# auto = use Windows Location (Wi-Fi) + an offline city list; the position never leaves the PC.
+# Set auto = false to always show the fixed values below.
+auto = true
+refresh_minutes = 30
+name = "Malibu, CA"
+lat = 34.0259
+lon = -118.7798
+
+[wake]
+wake_word = true
+wake_threshold = 0.5          # 0-1, wakes instantly above this
+# Below the threshold, anything scoring over `prefilter` is checked by Whisper for the word
+# "Jarvis" (helps with accents the wake model doesn't know). Lower = more checks, more CPU.
+verify = true
+prefilter = 0.05
+clap = true
+clap_sensitivity = 0.6        # 0-1, higher = easier to trigger (more false wakes)
+# Seconds after a wake during which another wake is ignored
+cooldown = 2.0
+
+[listen]
+max_seconds = 12              # longest single command
+start_timeout = 5             # give up if you do not start speaking
+silence_seconds = 0.9         # pause that ends a command
+# After each reply Jarvis stays awake this long, so you can keep talking without waking him.
+# "That's all" or "go to sleep" ends it sooner.
+active_seconds = 60
+first_seconds = 20            # shorter wait after a wake if you haven't said anything yet
+max_turns = 30                # safety stop, e.g. if a nearby video keeps "talking" to him
+
+[brain]
+ollama_url = "http://127.0.0.1:11434"
+model = "qwen3.5:4b"
+fallback_model = "qwen3.5:2b"
+# Free RAM (GB) needed before loading each model; below both, Jarvis explains instead.
+min_free_gb = 4.0
+fallback_min_free_gb = 2.6
+# Load the AI model when you wake Jarvis, and free its ~3 GB after this long without use.
+warm_on_wake = true
+keep_alive = "30m"
+num_ctx = 4096
+# Small on purpose: Ollama then resumes its cache ~60 tokens from the end instead of ~510,
+# cutting request reading time from ~22 s to ~4 s on a 4-core i5-8365U.
+num_batch = 64
+max_steps = 6
+request_timeout = 240
+
+[voice]
+piper_voice = "en_GB-alan-medium"
+speed = 1.0                   # 1.0 normal, 0.8 faster, 1.2 slower
+
+[files]
+# Folders Jarvis may read, create or move files in. Everything else is off limits.
+allowed = [
+    "~/Documents",
+    "~/Desktop",
+    "~/Downloads",
+]
+
+[apps]
+# How apps and folders Jarvis opens appear: "maximize" (full window, in front) or "normal".
+open_window = "maximize"
+
+[safety]
+approval_timeout = 30         # seconds; no answer means "no"
+
+[ui]
+port = 8765
+
+[presence]
+# Small animated Jarvis in the bottom-left corner while apps or folders cover the wallpaper.
+# Clicks pass through it. Hidden on the bare desktop, and over full-screen apps while idle.
+enabled = true
+margin = 16
+
+[reports]
+# Daily spoken report time (24h "HH:MM"), or "" for none.
+daily_time = ""
+gmail = false
+youtube = false
+meta = false
+x = false
+tiktok = false
+linkedin = false
+# Count notification emails from X/TikTok/LinkedIn/Facebook/Instagram in Gmail
+notification_emails = true
